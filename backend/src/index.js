@@ -3,6 +3,7 @@ import express from "express";
 import cookieParser from "cookie-parser"
 
 import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js";
 
 // Specify app requirements
@@ -16,6 +17,7 @@ app.use(cookieParser())
 
 // Specify routers
 app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes);
 
 // Set port for app to listen on
 app.listen(PORT, () => {
