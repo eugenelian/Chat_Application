@@ -1,7 +1,7 @@
-import jwt, { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-export const protectRoute = async (req, res) => {
+export const protectRoute = async (req, res, next) => {
   try {
     // Obtain token from request (jwt is name of token) and if return 401 error if non provided
     const token = req.cookies.jwt;
