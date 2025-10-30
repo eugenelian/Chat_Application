@@ -17,4 +17,8 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 ## Initialising Frontend Repository
-Frontend initialised with ```npm create vite@latest``` and ```npm install```. More packages meant for paginations / notifications installed through ```npm i react-router-dom react-hot-toast```
+Frontend initialised with ```npm create vite@latest``` and ```npm install```. 
+
+More packages meant for paginations / notifications installed through ```npm i react-router-dom react-hot-toast```
+
+Initialised TailwindCSS using ```npm install tailwindcss @tailwindcss/vite```
