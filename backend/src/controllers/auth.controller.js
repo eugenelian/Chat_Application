@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
+
 import User from "../models/user.model.js";
 import { generateToken } from "../lib/utils.js";
+import cloudinary from "../lib/cloudinary.js";
 
 // Signup route for users
 export const signup = async (req, res) => {
@@ -54,15 +56,79 @@ export const signup = async (req, res) => {
       res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
-    console.log("Error in signup controller:", error.message);
+    console.log("Error in signup controller: ", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-export const login = (req, res) => {
-  res.send("login route");
+// Login route for users
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Find if user with email exists, if not return error
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Checks if password matches hashed password in db, else return error
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // If authenticated, generate token and return to user with status 200
+    generateToken(user._id, res);
+    res.status(200).json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profilePic: user.profilePic,
+    });
+  } catch (error) {
+    console.log("Error in login controller: ", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
+// Logout route for users
 export const logout = (req, res) => {
-  res.send("logout route");
+  try {
+    // Remove cookie from response and return 200
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.log("Error in logout controller: ", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// Update Profile Route for users
+export const updateProfile = async (req, res) => {
+  try {
+    const { profilePic } = req.body;
+
+    // Access userId from token through req
+    const userId = req.user._id;
+
+    // Checks if profile pic is provided, else return error
+    if (!profilePic) {
+      return res.status(400).json({ message: "Profile pic is required" });
+    }
+
+    // Upload image into cloudinary
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+
+    // Find user and update the image secure url. Returns the user after update (new: true)
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePic: uploadResponse.secure_url },
+      { new: true }
+    );
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log("Error in update profile: ", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
