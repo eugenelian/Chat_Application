@@ -21,4 +21,8 @@ Frontend initialised with ```npm create vite@latest``` and ```npm install```.
 
 More packages meant for paginations / notifications installed through ```npm i react-router-dom react-hot-toast```
 
-Initialised TailwindCSS using ```npm install tailwindcss @tailwindcss/vite```
+Initialised TailwindCSS using ```npm i tailwindcss @tailwindcss/vite```
+
+Initialised Axios and Zustand (State Management) using ```npm i axios zustand```
+
+Installing icons using Lucide with ```npm i lucide-react```
