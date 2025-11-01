@@ -16,3 +16,11 @@ Installing CORS using ```npm i cors```
 
 ## Seeding database
 Database is seeded with different users using ```node src/seeds/user.seed.js```
+
+## ENV variables
+Please ensure that you have the following variables before running the backend
+- `NODE_ENV` for environment (development, staging, production)
+- `MONGODB_URI` for connecting to database
+- `PORT` for NodeJS port
+- `JWT_SECRET` for generating JWT - Can be generated using ```openssl rand -base64 32``` in terminal.
+- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` for saving images
