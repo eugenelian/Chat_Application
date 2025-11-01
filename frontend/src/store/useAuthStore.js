@@ -5,6 +5,7 @@ import { axiosInstance } from "../lib/axios.js";
 export const useAuthStore = create((set) => ({
   // Authenticated User Object
   authUser: null,
+  onlineUsers: [],
 
   // Global States
   isSigningUp: false,
