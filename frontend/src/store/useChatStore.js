@@ -56,8 +56,12 @@ export const useChatStore = create((set, get) => ({
 
     // Listen for "newMessage" events and update messages array
     const socket = useAuthStore.getState().socket;
-    // TODO: Optimize this one later
     socket.on("newMessage", (newMessage) => {
+      // Don't update UI if sender of message is not the current selected user
+      const isMessageSentFromSelectedUser =
+        newMessage.senderId === selectedUser._id;
+      if (!isMessageSentFromSelectedUser) return;
+      // Update messages
       set({ messages: [...get().messages, newMessage] });
     });
   },
@@ -68,7 +72,6 @@ export const useChatStore = create((set, get) => ({
     socket.off("newMessage");
   },
 
-  // TODO: Optimise this one later
   setSelectedUser: (selectedUser) => {
     set({ selectedUser });
   },
