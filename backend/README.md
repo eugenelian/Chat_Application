@@ -13,3 +13,6 @@ If you are developing a production application, we recommend using TypeScript wi
 Backend initialised with ```npm init -y```, ```npm i express mongoose dotenv jsonwebtoken bcryptjs cookie-parser cloudinary socket.io``` and ```npm i nodemon -D```
 
 Installing CORS using ```npm i cors```
+
+## Seeding database
+Database is seeded with different users using ```node src/seeds/user.seed.js```

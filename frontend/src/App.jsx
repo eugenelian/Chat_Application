@@ -3,21 +3,25 @@ import { useEffect } from "react";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 
-import { useAuthStore } from "./store/useAuthStore.js";
-import Navbar from "./components/Navbar.jsx";
-import HomePage from "./pages/HomePage.jsx";
-import SignUpPage from "./pages/SignUpPage.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import SettingsPage from "./pages/SettingsPage.jsx";
-import ProfilePage from "./pages/ProfilePage.jsx";
+import { useThemeStore } from "./store/useThemeStore";
+import { useAuthStore } from "./store/useAuthStore";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
+import SettingsPage from "./pages/SettingsPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+  const { theme } = useThemeStore();
+
+  console.log(onlineUsers);
+
+  // Keeps checking is user is authenticated each time the page is refreshed
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-
-  console.log(authUser);
 
   if (isCheckingAuth && !authUser)
     return (
@@ -27,7 +31,7 @@ const App = () => {
     );
 
   return (
-    <div>
+    <div data-theme={theme}>
       <Navbar />
       <Routes>
         <Route

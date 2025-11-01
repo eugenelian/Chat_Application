@@ -5,6 +5,7 @@ import App from "./App.jsx";
 
 import { BrowserRouter } from "react-router-dom";
 
+// Strict Mode causes functions to run twice
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>

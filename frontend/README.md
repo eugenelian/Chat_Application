@@ -26,3 +26,5 @@ Initialised TailwindCSS using ```npm i tailwindcss @tailwindcss/vite```
 Initialised Axios and Zustand (State Management) using ```npm i axios zustand```
 
 Installing icons using Lucide with ```npm i lucide-react```
+
+Installing socket.io client with ```npm i socket.io-client```
