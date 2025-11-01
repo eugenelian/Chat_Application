@@ -15,7 +15,7 @@ const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
 
   return (
-    <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
+    <div className="min-h-screen container mx-auto px-4 pt-20 max-w-5xl">
       <div className="space-y-6">
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold">Theme</h2>
@@ -47,8 +47,7 @@ const SettingsPage = () => {
                 </div>
               </div>
               <span className="text-[11px] font-medium truncate w-full text-center">
-                {t}
-                {/* {t.charAt(0).toUpperCase() + t.slice(1)} */}
+                {t.charAt(0).toUpperCase() + t.slice(1)}
               </span>
             </button>
           ))}
